@@ -1,79 +1,126 @@
-<!--Description:
-Version:
-Copyright:
-Author:
+<!--<!DOCTYPE case [-->
+<!ELEMENT case  (header,opinion+,concurr*,dissent*) >
 
-Public Identifier:
+<!ATTLIST case
+               id  ID    #IMPLIED  >
 
--->
-<!ENTITY % text  "(#PCDATA | cite | quote | footnote | underline | italics | 
-               graphic)*" >
-
-<!ENTITY % fntext  "(#PCDATA | cite | quote | underline | italics | graphic)*" >
-
-<!ENTITY % qtext  " (#PCDATA | cite | footnote | underline | italics | graphic)* " >
-
-<!ELEMENT case  (header,opinion+) >
-
-<!ELEMENT header  (court,jurisdiction,docket_number,parties+,prior_court?,
-               prior_jurisdiction*,judges+,counsel*,decision_date) >
+<!ELEMENT header  (ct_info,pty_info,dock_info,date_info,judge_info) >
 
 <!ELEMENT opinion  (author+,(section* | paragraph*)*) >
 
+<!ELEMENT concurr  (author+,(section* | paragraph*)*) >
+
+<!ELEMENT dissent  (author+,(section* | paragraph*)*) >
+
+<!ELEMENT ct_info  (court,prior_court*,jurisdiction,prior_jurisdiction*) >
+
+<!ELEMENT pty_info  (parties+,counsel*,appearance) >
+
+<!ELEMENT dock_info  (docket_number*,prior_docket_number*) >
+
+<!ELEMENT date_info  (decision_date+) >
+
+<!ELEMENT judge_info  (judges+) >
+
+<!ELEMENT author  (#PCDATA) >
+
+<!ATTLIST author
+               title  NMTOKEN    #IMPLIED 
+               judgeid  IDREFS    #IMPLIED  >
+
+<!ELEMENT section  (#PCDATA) >
+
+<!ATTLIST section
+               id  ID    #IMPLIED  >
+
+<!ELEMENT paragraph  (cite | quote | footnote | underline | party_ref | italics | 
+               graphic)* >
+
+<!ATTLIST paragraph
+               id  ID    #IMPLIED 
+               ambig  CDATA    #IMPLIED 
+               paraid  IDREFS    #IMPLIED  >
+
 <!ELEMENT court  (#PCDATA) >
+
+<!ELEMENT prior_court  (#PCDATA) >
 
 <!ELEMENT jurisdiction  (#PCDATA) >
 
-<!ELEMENT docket_number  (#PCDATA) >
+<!ELEMENT prior_jurisdiction  (#PCDATA) >
 
 <!ELEMENT parties  (#PCDATA) >
 
 <!ATTLIST parties
                status (plaintiff | defendant | appellee | appellant | appellee-def | 
                appellee-plain | appellant-def | appellant-palin | appellee-amicus | 
-               appellant-amicus | amicus)   #IMPLIED  >
-
-<!ELEMENT prior_court  (#PCDATA) >
-
-<!ELEMENT prior_jurisdiction  (#PCDATA) >
-
-<!ELEMENT judges  (#PCDATA) >
-
-<!--For court specific titles such as 'Chief Judge', etc.-->
-<!ATTLIST judges
-               title  NMTOKEN    #IMPLIED  >
+               appellant-amicus | amicus)   #IMPLIED 
+               id  ID    #IMPLIED  >
 
 <!ELEMENT counsel  (#PCDATA) >
 
-<!--For status of parties and their counsel-->
 <!ATTLIST counsel
+               status (plaintiff | defendant | appellee | appellant | appellee-def | 
+               appellee-plain | appellant-def | appellant-palin | appellee-amicus | 
+               appellant-amicus | amicus)   #IMPLIED 
+               id  ID    #IMPLIED  >
+
+<!ELEMENT appearance  (#PCDATA) >
+
+<!ATTLIST appearance
+               id  ID    #IMPLIED 
                status (plaintiff | defendant | appellee | appellant | appellee-def | 
                appellee-plain | appellant-def | appellant-palin | appellee-amicus | 
                appellant-amicus | amicus)   #IMPLIED  >
 
+<!ELEMENT docket_number  (#PCDATA) >
+
+<!ATTLIST docket_number
+               id  ID    #IMPLIED  >
+
+<!ELEMENT prior_docket_number  (#PCDATA) >
+
+<!ATTLIST prior_docket_number
+               case_id  IDREFS    #IMPLIED 
+               id  ID    #IMPLIED  >
+
 <!ELEMENT decision_date  (#PCDATA) >
 
-<!ELEMENT author  (#PCDATA) >
+<!ELEMENT judges  (#PCDATA) >
 
-<!ELEMENT section  (#PCDATA) >
+<!ATTLIST judges
+               title  NMTOKEN    #IMPLIED 
+               id  ID    #IMPLIED  >
 
-<!ELEMENT paragraph  %text; >
+<!ELEMENT cite  (#PCDATA | underline | italics)* >
 
-<!ELEMENT cite  (#PCDATA) >
+<!ATTLIST cite
+               id  ID    #IMPLIED  >
 
 <!ELEMENT quote  (#PCDATA | cite | footnote | underline | italics | graphic)* >
 
-<!ELEMENT footnote  %fntext; >
+<!ELEMENT footnote  (#PCDATA | cite | fnquote | underline | italics | graphic)* >
 
-<!--Unique number in document for each footnote.-->
 <!ATTLIST footnote
-               fnumber  ID    #IMPLIED  >
+               fnumber  NMTOKEN    #REQUIRED 
+               id  ID    #IMPLIED  >
 
 <!ELEMENT underline  (#PCDATA) >
 
 <!ATTLIST underline
                ambig  CDATA    #IMPLIED  >
 
+<!ELEMENT party_ref  (#PCDATA) >
+
+<!ATTLIST party_ref
+               party_id  IDREFS    #IMPLIED  >
+
 <!ELEMENT italics  (#PCDATA) >
 
 <!ELEMENT graphic   EMPTY  >
+
+<!ATTLIST graphic
+               id  ID    #IMPLIED  >
+
+<!ELEMENT fnquote  (cite | underline | italics | graphic)* >
+
