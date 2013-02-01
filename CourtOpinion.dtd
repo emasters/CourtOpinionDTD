@@ -1,3 +1,11 @@
+<!--Description:
+Version:
+Copyright:
+Author:
+
+Public Identifier:
+
+-->
 <!ENTITY % text  "(#PCDATA | cite | quote | footnote | underline | italics | 
                graphic)*" >
 
@@ -5,10 +13,9 @@
 
 <!ENTITY % qtext  " (#PCDATA | cite | footnote | underline | italics | graphic)* " >
 
-<!--XML DTD for case report markup. version .01. Prepared by Elmer Masters-->
 <!ELEMENT case  (header,opinion+) >
 
-<!ELEMENT header  (court,jurisdiction,docket_number,parties+,prior_court*,
+<!ELEMENT header  (court,jurisdiction,docket_number,parties+,prior_court?,
                prior_jurisdiction*,judges+,counsel*,decision_date) >
 
 <!ELEMENT opinion  (author+,(section* | paragraph*)*) >
@@ -54,17 +61,19 @@
 
 <!ELEMENT cite  (#PCDATA) >
 
-<!ELEMENT quote  (#PCDATA | cite | underline | italics | graphic)* >
+<!ELEMENT quote  (#PCDATA | cite | footnote | underline | italics | graphic)* >
 
 <!ELEMENT footnote  %fntext; >
 
 <!--Unique number in document for each footnote.-->
 <!ATTLIST footnote
-               fnumber  ID    #REQUIRED  >
+               fnumber  ID    #IMPLIED  >
 
 <!ELEMENT underline  (#PCDATA) >
+
+<!ATTLIST underline
+               ambig  CDATA    #IMPLIED  >
 
 <!ELEMENT italics  (#PCDATA) >
 
 <!ELEMENT graphic   EMPTY  >
-
