@@ -1,0 +1,70 @@
+<!ENTITY % text  "(#PCDATA | cite | quote | footnote | underline | italics | 
+               graphic)*" >
+
+<!ENTITY % fntext  "(#PCDATA | cite | quote | underline | italics | graphic)*" >
+
+<!ENTITY % qtext  " (#PCDATA | cite | footnote | underline | italics | graphic)* " >
+
+<!--XML DTD for case report markup. version .01. Prepared by Elmer Masters-->
+<!ELEMENT case  (header,opinion+) >
+
+<!ELEMENT header  (court,jurisdiction,docket_number,parties+,prior_court*,
+               prior_jurisdiction*,judges+,counsel*,decision_date) >
+
+<!ELEMENT opinion  (author+,(section* | paragraph*)*) >
+
+<!ELEMENT court  (#PCDATA) >
+
+<!ELEMENT jurisdiction  (#PCDATA) >
+
+<!ELEMENT docket_number  (#PCDATA) >
+
+<!ELEMENT parties  (#PCDATA) >
+
+<!ATTLIST parties
+               status (plaintiff | defendant | appellee | appellant | appellee-def | 
+               appellee-plain | appellant-def | appellant-palin | appellee-amicus | 
+               appellant-amicus | amicus)   #IMPLIED  >
+
+<!ELEMENT prior_court  (#PCDATA) >
+
+<!ELEMENT prior_jurisdiction  (#PCDATA) >
+
+<!ELEMENT judges  (#PCDATA) >
+
+<!--For court specific titles such as 'Chief Judge', etc.-->
+<!ATTLIST judges
+               title  NMTOKEN    #IMPLIED  >
+
+<!ELEMENT counsel  (#PCDATA) >
+
+<!--For status of parties and their counsel-->
+<!ATTLIST counsel
+               status (plaintiff | defendant | appellee | appellant | appellee-def | 
+               appellee-plain | appellant-def | appellant-palin | appellee-amicus | 
+               appellant-amicus | amicus)   #IMPLIED  >
+
+<!ELEMENT decision_date  (#PCDATA) >
+
+<!ELEMENT author  (#PCDATA) >
+
+<!ELEMENT section  (#PCDATA) >
+
+<!ELEMENT paragraph  %text; >
+
+<!ELEMENT cite  (#PCDATA) >
+
+<!ELEMENT quote  (#PCDATA | cite | underline | italics | graphic)* >
+
+<!ELEMENT footnote  %fntext; >
+
+<!--Unique number in document for each footnote.-->
+<!ATTLIST footnote
+               fnumber  ID    #REQUIRED  >
+
+<!ELEMENT underline  (#PCDATA) >
+
+<!ELEMENT italics  (#PCDATA) >
+
+<!ELEMENT graphic   EMPTY  >
+
